@@ -1,16 +1,11 @@
-BOSH release to run influxenterprise
+BOSH release to run influxdb
 =======================
-This repository contain Idefix BOSH release of the Inxluxdb Enterprise version.
-
-Deployment consists of:
-- 2x data nodes
-- 3x meta nodes
-- 1x web interface
+This repository contain Idefixdb BOSH release.
 
 Background
 ----------
 
-### What is InfluxEnterprise?
+### What is Influxdb?
 
 >"InfluxDB is an open source database written in Go specifically to handle time series data with high availability and high performance requirements. InfluxDB installs in minutes without external dependencies, yet is flexible and scalable enough for complex deployments."
 
@@ -22,7 +17,7 @@ Usage
 To use this bosh release, first upload it to your bosh:
 
 ```
-bosh upload release https://github.com/hybris/influxenterprise-boshrelease
+bosh upload release https://github.com/hybris/influxdb-boshrelease
 ```
 
 For [bosh-lite](https://github.com/cloudfoundry/bosh-lite), you can quickly create a deployment manifest & deploy a cluster:
@@ -41,14 +36,14 @@ Create a file `my-networking.yml`:
 ```yaml
 ---
 networks:
-  - name: influxenterprise
+  - name: influxdb
     type: dynamic
     cloud_properties:
       security_groups:
         - influxenterprise
 ```
 
-Where `- influxenterprise` means you wish to use an existing security group called `influxenterprise`.
+Where `- influxdb` means you wish to use an existing security group called `influxdb`.
 
 You now suffix this file path to the `make_manifest` command:
 
