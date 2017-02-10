@@ -1,0 +1,46 @@
+---
+name: influxdb
+templates:
+  influxdb.conf.erb: config/influxdb.conf
+  init.sh.erb: bin/init.sh
+
+packages:
+  - influxdb
+
+properties:
+  influxdb.shared-secret:
+    description: Long pass phrase that will be used to sign tokens
+  influxdb.license-key:
+    description: License key
+    default: ""
+  influxdb.license-path:
+    description: Path to license if key not provided
+    default: ""
+  influxdb.license-file:
+    description: License file content
+    default: ""
+
+  influxdb-data.data-dir:
+    description: Data Dir
+    default: /var/vcap/store/influxdb/data
+  influxdb-data.wal-dir:
+    description: Wal Dir
+    default: /var/vcap/store/influxdb/wal
+  influxdb-data.meta-dir:
+    description: meta Dir
+    default: /var/vcap/store/influxdb/meta
+  influxdb-data.hh-dir:
+    description: hh Dir
+    default: /var/vcap/store/influxdb/hh
+  influxdb-data.adminport:
+    description: web-based admin interface
+    default: 8083
+  influxdb-data.https-enabled:
+    description: Enable HTTPS
+    default: false
+  influxdb-data.pem-path:
+    description: SSL pem path
+    default: /etc/ssl/influxdb.pem
+  influxdb-data.http-port:
+    description: Controls how the HTTP endpoints are configured
+    default: 8086

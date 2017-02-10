@@ -1,0 +1,37 @@
+meta:
+  environment: influxdb-warden
+
+  stemcell:
+    name: bosh-warden-boshlite-ubuntu-trusty-go_agent
+    version: latest
+
+update:
+  canaries: 1
+  max_in_flight: 1
+  canary_watch_time: 1000-60000
+  update_watch_time: 1000-60000
+  serial: true
+
+jobs:
+  - name: influxdb
+    instances: 1
+    networks:
+      - name: influxdb-network
+
+compilation:
+  cloud_properties:
+    name: random
+
+resource_pools:
+  - name: influxdb-resource-pool
+    cloud_properties:
+      name: random
+
+networks:
+- name: influxdb-network
+  type: manual
+  subnets:
+  - range: 10.244.10.16/29
+    gateway: 10.244.10.17
+    static:
+      - 10.244.10.18

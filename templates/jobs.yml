@@ -1,0 +1,17 @@
+meta:
+  environment: ~
+
+jobs:
+  - name: influxdb
+    templates:
+    - {name: influxdb, release: influxdb}
+    instances: 1
+    resource_pool: influxdb-resource-pool
+    networks: (( param "please set networks" ))
+    persistent_disk: 0
+    properties: {}
+
+
+networks: (( param "please set networks" ))
+
+properties: {}
