@@ -23,9 +23,9 @@ jobs:
   plan:
   - do:
     - aggregate:
-      - get: influxenterprise-boshrelease
-        resource: git-influxenterprise-boshrelease
-      - get: git-influxenterprise-boshrelease-release-changes
+      - get: influxdbFOSS-boshrelease
+        resource: git-influxdbFOSS-boshrelease
+      - get: git-influxdbFOSS-boshrelease-release
         trigger: true
 
     - task: create-release-and-deploy
@@ -33,25 +33,22 @@ jobs:
         platform: linux
         image: {{docker-hub-task-image}}
         inputs:
-        - {name: influxenterprise-boshrelease}
+        - {name: influxdbFOSS-boshrelease}
         run:
-          path: ./influxenterprise-boshrelease/ci/scripts/create_release_and_deploy.sh
+          path: ./influxdbFOSS-boshrelease/ci/scripts/create_release_and_deploy.sh
           args: []
         params:
           bosh_target: {{bosh-lite-build-target}}
           bosh_username: {{bosh-lite-build-username}}
           bosh_password: {{bosh-lite-build-password}}
           bosh_deployment_name: {{bosh-lite-build-deployment-name}}
-          license_key: {{license-key}}
-          shared_secret: {{shared-secret}}
-          license_file: {{license-file}}
 
 - name: rc
   public: true
   plan:
   - aggregate:
     - get: boshrelease
-      resource: git-influxenterprise-boshrelease
+      resource: git-influxdbFOSS-boshrelease
       passed: [testflight]
       trigger: true
     - get: version
@@ -99,23 +96,23 @@ jobs:
       passed: [rc]
       params: {bump: final}
     - get: boshrelease
-      resource: git-influxenterprise-boshrelease
+      resource: git-influxdbFOSS-boshrelease
       passed: [rc]
   - task: create-final-release
     config:
       platform: linux
       image: {{docker-hub-task-image}}
       inputs:
-      - {name: boshrelease, path: influxenterprise-boshrelease}
+      - {name: boshrelease, path: influxdbFOSS-boshrelease}
       - {name: version}
       outputs:
       - {name: create-final-release, path: output}
 
       run:
-        path: ./influxenterprise-boshrelease/ci/scripts/shipit.sh
+        path: ./influxdbFOSS-boshrelease/ci/scripts/shipit.sh
         args: []
       params:
-        release_name: "influxenterprise BOSH Release"
+        release_name: "influxdb FOSS BOSH Release"
         bosh_target: {{bosh-lite-build-target}}
         bosh_username: {{bosh-lite-build-username}}
         bosh_password: {{bosh-lite-build-password}}
@@ -123,24 +120,25 @@ jobs:
         aws_access_key_id: {{boshrelease-aws-access-key-id}}
         aws_secret_access_key: {{boshrelease-aws-secret-access-key}}
         promotion_branch: master
-        output_dir: ../output/influxenterprise-boshrelease
-  - put: git-influxenterprise-boshrelease
+        output_dir: ../output/influxdbFOSS-boshrelease
+  - put: git-influxdbFOSS-boshrelease
     params:
-      repository: create-final-release/influxenterprise-boshrelease
+      repository: create-final-release/influxdbFOSS-boshrelease
       rebase: true
   - aggregate:
     - put: version
       params: {file: version/number}
     - put: final-release
       params:
-        from: create-final-release/influxenterprise-boshrelease/releases/influxenterprise/influxenterprise-(.*).tgz
-        to: influxenterprise-boshrelease/
+        file: create-final-release/influxdbFOSS-boshrelease/releases/influxdb/influxdb-(.*).tgz
+        # from: create-final-release/influxdbFOSS-boshrelease/releases/influxdb/influxdb-(.*).tgz
+        # to: influxdbFOSS-boshrelease/
     - put: github-final-release
       params:
-        name: create-final-release/influxenterprise-boshrelease/release/name
-        tag: create-final-release/influxenterprise-boshrelease/release/tag
-        body: create-final-release/influxenterprise-boshrelease/release/notes.md
-        globs: [create-final-release/influxenterprise-boshrelease/releases/influxenterprise/influxenterprise-*.tgz]
+        name: create-final-release/influxdbFOSS-boshrelease/release/name
+        tag: create-final-release/influxdbFOSS-boshrelease/release/tag
+        body: create-final-release/influxdbFOSS-boshrelease/release/notes.md
+        globs: [create-final-release/influxdbFOSS-boshrelease/releases/influxdb/influxdb-*.tgz]
 
 - name: build-task-image
   public: true
@@ -152,8 +150,6 @@ jobs:
     params:
       build: git-boshrelease/ci/ci_image
 
-
-
 resources:
 - name: version
   type: semver
@@ -162,15 +158,15 @@ resources:
     bucket: {{pipeline-aws-bucket}}
     access_key_id: {{pipeline-aws-access-key-id}}
     secret_access_key: {{pipeline-aws-secret-access-key}}
-    initial_version: 0.0.0
+    initial_version: 1.1.0
 
-- name: git-influxenterprise-boshrelease
+- name: git-influxdbFOSS-boshrelease
   type: git
   source:
     uri: {{pipeline-git-repo}}
     branch: {{pipeline-branch}}
 
-- name: git-influxenterprise-boshrelease-release-changes
+- name: git-influxdbFOSS-boshrelease-release
   type: git
   source:
     uri: {{pipeline-git-repo}}
@@ -188,14 +184,14 @@ resources:
   type: github-release
   source:
     user: hybris
-    repository: influxenterprise-boshrelease
+    repository: influxdbFOSS-boshrelease
     access_token: {{github-access-token}}
 
 - name: final-release
   type: s3
   source:
     bucket: {{boshrelease-aws-bucket}}
-    regexp: influxenterprise-boshrelease/influxenterprise-(.*).tgz
+    regexp: influxdbFOSS-boshrelease/influxdbFOSS-(.*).tgz
     access_key_id: {{boshrelease-aws-access-key-id}}
     secret_access_key: {{boshrelease-aws-secret-access-key}}
 
