@@ -1,0 +1,20 @@
+---
+packages:
+- name: influxdb
+  version: db9bfdb6ba2dfe0f1a681d73ad4e06e11842755c
+  fingerprint: db9bfdb6ba2dfe0f1a681d73ad4e06e11842755c
+  sha1: 05b633a9e542de11ad406091a62ab1fb94b1cf0a
+  dependencies: []
+jobs:
+- name: influxdb
+  version: 965e0f2893ccc3aa7dac7b7403dc19da259d943b
+  fingerprint: 965e0f2893ccc3aa7dac7b7403dc19da259d943b
+  sha1: d667e9e19e5f856503fbc881271d7c68d7e09fbd
+license:
+  version: 676c8daec0d50a3e22f6d824b64b6db752e13d6b
+  fingerprint: 676c8daec0d50a3e22f6d824b64b6db752e13d6b
+  sha1: 14af3d7555063834d44f013dca93e5181773ff6a
+commit_hash: 1e1d6d42
+uncommitted_changes: true
+name: influxdb
+version: 1.2.0
