@@ -1,6 +1,6 @@
 # Concourse Pipeline for building/testing release
 
-Pipeline running at https://concourse.us-east.tools.yaas.io/pipelines/influxenterprise-boshrelease
+Pipeline running at https://concourse.us-east.tools.yaas.io/pipelines/influxdbFOSS-boshrelease
 
 ## Setup pipeline in Concourse
 
@@ -10,4 +10,4 @@ Pipeline running at https://concourse.us-east.tools.yaas.io/pipelines/influxente
 
 ## Building/updating the base Docker image for tasks
 
-Each task within all job build plans uses the same base Docker image for all dependencies. Using the same Docker image is a convenience. 
+Each task within all job build plans uses the same base Docker image for all dependencies. Using the same Docker image is a convenience.
