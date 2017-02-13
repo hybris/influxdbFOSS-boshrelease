@@ -7,8 +7,18 @@ meta:
   stemcell:
     name: STEMCELL
 
+  releases:
+    - name: telegraf
+      version: 1.2.0
+      url: https://github.com/hybris/telegraf-boshrelease/releases/download/v1.2.0/telegraf-1.2.0.tgz
+      sha1: e4b16df1a2c41536a24f25a62f977e011e4e0a9d
+
 director_uuid: PLACEHOLDER-DIRECTOR-UUID
 
 releases:
   - name: influxdb
     version: latest
+  - name: telegraf
+    url: (( grab meta.releases.telegraf.url ))
+    sha1: (( grab meta.releases.telegraf.sha1 ))
+    version: (( grab meta.releases.telegraf.version ))

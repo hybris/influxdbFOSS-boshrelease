@@ -5,6 +5,7 @@ jobs:
   - name: influxdb
     templates:
     - {name: influxdb, release: influxdb}
+    - {name: telegraf, release: telegraf}
     instances: 1
     resource_pool: influxdb-resource-pool
     networks: (( param "please set networks" ))
