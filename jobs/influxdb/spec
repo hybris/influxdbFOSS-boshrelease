@@ -120,7 +120,8 @@ properties:
     default: ':8086'
   influxdb.http.auth-enabled:
     description: Determines whether HTTP authentication is enabled.
-    default: false
+    # default: false
+    default: true
   influxdb.http.realm:
     description: The default realm sent back when issuing a basic auth challenge.
     default: InfluxDB
