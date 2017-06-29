@@ -31,7 +31,10 @@ jobs:
     - task: create-release-and-deploy
       config:
         platform: linux
-        image: {{docker-hub-task-image}}
+        image_resource:
+          type: docker-image
+          source:
+            repository: teamidefix/influxdb-boshrelease-pipeline
         inputs:
         - {name: influxdbFOSS-boshrelease}
         run:
@@ -101,7 +104,10 @@ jobs:
   - task: create-final-release
     config:
       platform: linux
-      image: {{docker-hub-task-image}}
+      image_resource:
+        type: docker-image
+        source:
+          repository: teamidefix/influxdb-boshrelease-pipeline
       inputs:
       - {name: boshrelease, path: influxdbFOSS-boshrelease}
       - {name: version}
