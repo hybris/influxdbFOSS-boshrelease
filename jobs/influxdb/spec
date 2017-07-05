@@ -9,14 +9,11 @@ packages:
 
 properties:
 ### [meta]
-  influxdb.meta.enabled:
-    description: meta enabled
-    default: false
   influxdb.meta.dir:
     description: meta Dir
     default: /var/vcap/store/influxdb/meta
   influxdb.meta.RPautocreate:
-    description: meta RetentionPolicy autocreate
+    description: Automatically create a default retention policy when creating a database
     default: true
   influxdb.meta.logging:
     description: meta logging
@@ -135,7 +132,7 @@ properties:
     default: true
   influxdb.http.max-row-limit:
     description: The default chunk size for result sets that should be chunked.
-    default: 10000
+    default: 0
 
   influxdb.http.max-connection-limit:
     description: |
