@@ -34,7 +34,7 @@ jobs:
         image_resource:
           type: docker-image
           source:
-            repository: teamidefix/influxdb-boshrelease-pipeline
+            repository: {{docker-hub-task-image}}
         inputs:
         - {name: influxdbFOSS-boshrelease}
         run:
@@ -107,7 +107,7 @@ jobs:
       image_resource:
         type: docker-image
         source:
-          repository: teamidefix/influxdb-boshrelease-pipeline
+          repository: {{docker-hub-task-image}}
       inputs:
       - {name: boshrelease, path: influxdbFOSS-boshrelease}
       - {name: version}
