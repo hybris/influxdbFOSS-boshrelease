@@ -10,4 +10,6 @@ builds:
     version: 1.4.1
   32350ee6-c843-462a-8945-a16e221712e4:
     version: 1.6.0
+  b4c047e1-1834-43ff-b433-21593d82eab6:
+    version: 1.8.0
 format-version: '2'
